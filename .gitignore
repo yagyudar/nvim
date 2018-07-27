@@ -1,0 +1,8 @@
+.netrwhist
+/local.vim
+/dein/*
+/backup/*
+/swap/*
+!/dein/.gitkeep
+!/backup/.gitkeep
+!/swap/.gitkeep
