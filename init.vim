@@ -10,10 +10,10 @@ if &compatible
   set nocompatible
 endif
 
-set runtimepath+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state($HOME . '/.config/nvim/dein')
-  call dein#begin($HOME . '/.config/nvim/dein')
+if dein#load_state($HOME . '/.cache/dein')
+  call dein#begin($HOME . '/.cache/dein')
 
   let s:toml = $HOME . '/.config/nvim/dein-plugins.toml'
   call dein#load_toml(s:toml, {'lazy': 0})

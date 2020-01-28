@@ -48,37 +48,51 @@ nmap <C-n> <Plug>(yankround-next)
 "===== /yankround =====
 
 "===== lsp =====
-let g:LanguageClient_serverCommands = {
-            \ 'vue': ['vls'],
-            \ 'typescript': ['typescript-language-server', '--stdio'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ }
-let g:LanguageClient_rootMarkers = {
-    \ 'vue': ['package.json'],
-    \ }
+let g:lsp_settings_servers_dir=$HOME . '/.cache/lsp'
 
-command! LStart LanguageClientStart
-command! LStop LanguageClientStop
-command! LStatus echo LanguageClient#serverStatus()
-command! LStatusMessage echo LanguageClient#serverStatusMessage()
+let g:lsp_settings = {
+\  'eclipse-jdt-ls': {
+\    'root_uri': lsp_settings#root_uri(['.git/'])},
+\}
+
+" if executable('vls')
+"   augroup LspVls
+"     au!
+"     au User lsp_setup call lsp#register_server({
+"     \    'name': 'vue-language-server',
+"     \    'cmd': {server_info->['vls']},
+"     \    'whitelist': ['vue'],
+"     \    'initialization_options': {
+"     \      'config': {
+"     \        'html': {},
+"     \        'vetur': {
+"     \          'validation': {},
+"     \          'completion': {
+"     \            'scaffoldSnippetSources': {},
+"     \          }
+"     \        }
+"     \      }
+"     \    }
+"     \})
+"     au FileType vue setlocal omnifunc=lsp#complete
+"   augroup END
+" endif
 
 nnoremap [lsp] <Nop>
 nmap ,l [lsp]
-nnoremap <silent> [lsp]l :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> [lsp]c :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> [lsp]h :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> [lsp]d :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> [lsp]t :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> [lsp]i :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <silent> [lsp]n :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> [lsp]r :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> [lsp]f :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> [lsp]s :echo LanguageClient#serverStatus()<CR>
-nnoremap <silent> gK [lsp]h
-nnoremap <silent> gD [lsp]d
-nnoremap <silent> gR [lsp]r
-nnoremap <silent> g= [lsp]f
-
+nmap <silent> [lsp]h <plug>(lsp-hover)
+nmap <silent> [lsp]l <plug>(lsp-hover)
+nmap <silent> [lsp]d <plug>(lsp-peek-definition)
+nmap <silent> [lsp]D <plug>(lsp-definition)
+nmap <silent> [lsp]t <plug>(lsp-peek-type-definition)
+nmap <silent> [lsp]T <plug>(lsp-type-definition)
+nmap <silent> [lsp]i <plug>(lsp-peek-implementation)
+nmap <silent> [lsp]I <plug>(lsp-implementation)
+nmap <silent> [lsp]r <plug>(lsp-references)
+nmap <silent> [lsp]n <plug>(lsp-next-reference)
+nmap <silent> [lsp]N <plug>(lsp-previous-reference)
+nmap <silent> [lsp]e <plug>(lsp-next-error)
+nmap <silent> [lsp]E <plug>(lsp-previous-error)
 "===== /lsp =====
 
 "===== vaffle =====
@@ -88,14 +102,6 @@ augroup MyVaffleSetting
   autocmd FileType vaffle nmap <buffer> <CR> <Plug>(vaffle-open-selected)
 augroup END
 "===== /vaffle =====
-
-"===== memolist =====
-let g:memolist_memo_suffix = "uiki"
-nnoremap [memolist] <Nop>
-nmap ,m [memolist]
-nnoremap <silent> [memolist]n :<C-u>MemoNew<CR>
-nnoremap <silent> [memolist]m :<C-u>CtrlPMemoList<CR>
-"===== /memolist =====
 
 "===== vim-asterisk =====
 map * <Plug>(asterisk-z*)
@@ -273,8 +279,6 @@ nmap [superleader]g [fzf]g
 nmap [superleader]h [lsp]h
 nmap [superleader]l [lsp]
 nmap [superleader]m [fzf]m
-" nmap [superleader]m [ctrlp]m
-nmap [superleader]n [memolist]
 nmap [superleader]r [lsp]r
 nmap [superleader]s [terminal]s
 nmap [superleader]t [terminal]t

@@ -8,9 +8,6 @@ repo = 'Shougo/neosnippet.vim'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
 repo = 'thinca/vim-zenspace'
 
 [[plugins]]
@@ -21,9 +18,6 @@ repo = 'haya14busa/vim-asterisk'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
-
-[[plugins]]
-repo = 'glidenote/memolist.vim'
 
 [[plugins]]
 repo = 'itchyny/vim-cursorword'
@@ -50,9 +44,6 @@ repo = 'w0rp/ale'
 repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
-repo = 'sgur/ctrlp-memolist.vim'
-
-[[plugins]]
 repo = 'LeafCage/yankround.vim'
 
 [[plugins]]
@@ -66,9 +57,19 @@ on_ft = 'vue'
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-build = 'bash install.sh'
-on_ft = ['typescript', 'vue']
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
 
 [[plugins]]
 repo = 'junegunn/fzf'
@@ -78,6 +79,10 @@ merged = 0
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 depends = 'fzf'
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = '''let g:rainbow_active = 1'''
 
 # syntax
 [[plugins]]
@@ -91,9 +96,18 @@ on_ft = 'markdown'
 [[plugins]]
 repo = 'cespare/vim-toml'
 
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
+
+[[plugins]]
+repo = 'wavded/vim-stylus'
+
 # colorscheme
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'

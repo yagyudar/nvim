@@ -237,6 +237,8 @@ endif
 nnoremap <silent><Esc><Esc> :<C-u>call <SID>my_double_esc_function()<CR>
 function! s:my_double_esc_function()
   pclose
+  lclose
+  cclose
   QuickhlManualReset
   let @/ = '' "Nohlsearch
   set norelativenumber
