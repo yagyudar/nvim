@@ -55,11 +55,11 @@ let g:lsp_settings = {
 \     'root_uri_patterns': ['.git/'],
 \  },
 \  'vls': {
-\     'root_uri_patterns': ['tsconfig.json', 'tsconfig.json'],
+\     'root_uri_patterns': ['tsconfig.json', 'tsconfig.json', 'tsconfig.json'],
 \  }
 \}
 
-" ↑ tsconfigが二つ書いてあるのは、vueでtsのimportがエラーになる件の対策。
+" ↑ tsconfigが三つ書いてあるのは、vueでtsのimportがエラーになる件の対策。
 " defaultのパターンとマージしてパスを検索し多くヒットしたパスが採用されるようなので、
 " 無理矢理複数書いておいて勝たせる。
 "
