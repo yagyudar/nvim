@@ -52,31 +52,48 @@ let g:lsp_settings_servers_dir=$HOME . '/.cache/lsp'
 
 let g:lsp_settings = {
 \  'eclipse-jdt-ls': {
-\    'root_uri': lsp_settings#root_uri(['.git/'])},
+\     'root_uri_patterns': ['.git/'],
+\  }
 \}
 
-" if executable('vls')
-"   augroup LspVls
-"     au!
-"     au User lsp_setup call lsp#register_server({
-"     \    'name': 'vue-language-server',
-"     \    'cmd': {server_info->['vls']},
-"     \    'whitelist': ['vue'],
-"     \    'initialization_options': {
-"     \      'config': {
-"     \        'html': {},
-"     \        'vetur': {
-"     \          'validation': {},
-"     \          'completion': {
-"     \            'scaffoldSnippetSources': {},
-"     \          }
-"     \        }
-"     \      }
-"     \    }
-"     \})
-"     au FileType vue setlocal omnifunc=lsp#complete
-"   augroup END
-" endif
+
+" なんかvueでlspが上手く動かない場合がある問題の対策
+"
+let s:lsp_restart_for_vue_done = 0
+function! s:my_lsp_restart_for_vue()
+    if s:lsp_restart_for_vue_done < 1
+        call lsp#disable()
+        call lsp#enable()
+        let s:lsp_restart_for_vue_done += 1
+        echom 'lsp restarted'
+    endif
+endfunction
+augroup MyLspRestartForVue
+  autocmd!
+  autocmd FileType vue call s:my_lsp_restart_for_vue()
+augroup END
+" command LspTest echom s:lsp_restart_for_vue_done
+
+" /なんかvueでlspが上手く動かない場合がある問題の対策
+
+
+" let g:lsp_auto_enable = 0
+
+" let g:lsp_settings_filetype_typescript = ['typescript-language-server']
+" let g:lsp_settings_filetype_vue = ['vls']
+
+" let g:lsp_signs_enabled = 1
+" let g:lsp_signs_error = {'text': 'e'}
+" let g:lsp_signs_warning = {'text': 'w'}
+" let g:lsp_signs_hint = {'text': 'h'}
+" 
+" let g:lsp_diagnostics_enabled = 1
+" let g:lsp_diagnostics_echo_cursor = 1
+" 
+" let g:lsp_highlights_enabled = 1
+" let g:lsp_textprop_enabled = 1
+" let g:lsp_virtual_text_enabled = 1
+" let g:lsp_highlight_references_enabled = 1
 
 nnoremap [lsp] <Nop>
 nmap ,l [lsp]
@@ -168,10 +185,16 @@ augroup END
 " Plugin configuration like the code written in vimrc.
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['eslint'],
+\   'vue': ['eslint'],
 \   'css': ['stylelint'],
-\   'vue': ['tslint'],
 \}
+
+if executable('eslint_d')
+  let g:ale_javascript_eslint_use_global = 1
+  let g:ale_javascript_eslint_executable = 'eslint_d'
+endif
+
 let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_maximum_file_size = 500000
@@ -185,6 +208,9 @@ augroup ALEProgress
     autocmd User ALELintPre let s:ale_running = 1 | call lightline#update()
     autocmd User ALELintPost let s:ale_running = 0 | call lightline#update()
 augroup end
+
+" let g:ale_enabled = 1
+
 "===== /ale =====
 
 "===== lightline =====
@@ -232,7 +258,13 @@ endfunction
 "===== deoplete =====
 let g:deoplete#enable_at_startup = 1
 "===== /deoplete =====
-"
+
+"===== emmet =====
+let g:user_emmet_mode='nv'
+nmap ,e <plug>(emmet-expand-abbr)
+xmap ,e <C-y>,
+"===== /emmet =====
+
 """"""""""""""""""""""""""""""
 " submode
 """"""""""""""""""""""""""""""

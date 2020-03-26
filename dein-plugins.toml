@@ -111,3 +111,12 @@ repo = 'jonathanfilip/vim-lucius'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'mhinz/vim-startify'
+
+[[plugins]]
+repo = 'unblevable/quick-scope'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
