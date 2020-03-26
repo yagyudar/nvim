@@ -53,34 +53,24 @@ let g:lsp_settings_servers_dir=$HOME . '/.cache/lsp'
 let g:lsp_settings = {
 \  'eclipse-jdt-ls': {
 \     'root_uri_patterns': ['.git/'],
+\  },
+\  'vls': {
+\     'root_uri_patterns': ['tsconfig.json', 'tsconfig.json'],
 \  }
 \}
 
-
-" なんかvueでlspが上手く動かない場合がある問題の対策
+" ↑ tsconfigが二つ書いてあるのは、vueでtsのimportがエラーになる件の対策。
+" defaultのパターンとマージしてパスを検索し多くヒットしたパスが採用されるようなので、
+" 無理矢理複数書いておいて勝たせる。
 "
-let s:lsp_restart_for_vue_done = 0
-function! s:my_lsp_restart_for_vue()
-    if s:lsp_restart_for_vue_done < 1
-        call lsp#disable()
-        call lsp#enable()
-        let s:lsp_restart_for_vue_done += 1
-        echom 'lsp restarted'
-    endif
-endfunction
-augroup MyLspRestartForVue
-  autocmd!
-  autocmd FileType vue call s:my_lsp_restart_for_vue()
-augroup END
-" command LspTest echom s:lsp_restart_for_vue_done
+" でもenableされるタイミングなどにdefaultのパターンが再びセットされたりするよ
+" うなので、使っているうちにいつの間にか負けるようになるということになるかも...
+" プラグイン側で修正してほしい。
+"
+" なお、tsconfigなのはあるプロジェクトの都合。
+" 普遍的な条件ではないので、本来これはプロジェクトローカルの設定にすべき。
+" だがこのノウハウを残すためにあえていったんここに設定しておく。
 
-" /なんかvueでlspが上手く動かない場合がある問題の対策
-
-
-" let g:lsp_auto_enable = 0
-
-" let g:lsp_settings_filetype_typescript = ['typescript-language-server']
-" let g:lsp_settings_filetype_vue = ['vls']
 
 " let g:lsp_signs_enabled = 1
 " let g:lsp_signs_error = {'text': 'e'}
