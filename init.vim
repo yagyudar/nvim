@@ -20,6 +20,8 @@ if dein#load_state($HOME . '/.cache/dein')
 
   call dein#end()
   call dein#save_state()
+
+  call dein#recache_runtimepath()
 endif
 
 " Required:
